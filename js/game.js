@@ -41,15 +41,14 @@ function startGame(e) {
 function selectRandomWord() {
   let wordPool = [];
   switch (category) {
-    case "Movies":
+    case "movies":
       wordPool = words_movies;
       break;
-    case "Nature":
+    case "nature":
       wordPool = words_nature;
       break;
-    case "All":
+    case "all":
     default:
-      // all
       wordPool = words_movies.concat(words_nature).concat(words_general);
       break;
   }

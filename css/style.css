@@ -116,5 +116,7 @@ body {
 }
 
 .copyright div {
-  margin-bottom: 20px;
+  width: 500px;
+  padding: 6px;
+  margin: 20px auto 20px auto;
 }
