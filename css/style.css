@@ -1,0 +1,120 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-image: url(../assets/tropical1.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  font-size: 10pt;
+  font-family: Arial, sans-serif;
+}
+
+.logo,
+.game-options,
+.game,
+.copyright {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+.logo img {
+  width: 538px;
+  height: 85px;
+  margin: 50px auto;
+}
+
+.dark-background {
+  background-color: rgba(0, 0, 0, 60%);
+}
+
+.game-options-container {
+  z-index: 200;
+  position: relative;
+  height: 400px;
+  width: 500px;
+  top: 25%;
+  margin: 0 auto;
+  background-color: rgb(98, 224, 190);
+}
+
+#category-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#category-form label,
+.game span {
+  width: 60%;
+  font-size: 12pt;
+  margin: 20% auto 10px auto;
+}
+#category-form select {
+  width: 60%;
+  font-size: 12pt;
+}
+#start-button {
+  background-color: rgb(20, 60, 136);
+  border: none;
+  color: white;
+  width: 130px;
+  height: 50px;
+  font-size: 12pt;
+  margin: 20px auto;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+/* .game {
+  
+} */
+.game-container {
+  background-color: rgba(255, 255, 255, 0.7);
+  position: relative;
+  height: 400px;
+  width: 500px;
+  top: 25%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.guess-title {
+  margin: 10% auto;
+  width: 60%;
+  font-size: 12pt;
+}
+.current-word {
+  margin: 10% auto;
+  font-size: 24pt;
+  width: 60%;
+  color: rgb(70, 160, 135);
+}
+.wrong-guesses {
+  margin: 10% auto;
+  width: 60%;
+  font-size: 12pt;
+}
+.wrong-guesses-letters {
+  margin-top: 10px;
+  color: rgb(70, 160, 135);
+}
+.copyright {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  margin: 0 auto;
+  text-align: center;
+  color: white;
+  z-index: 100;
+}
+
+.copyright div {
+  margin-bottom: 20px;
+}
