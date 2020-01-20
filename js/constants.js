@@ -1,8 +1,6 @@
-const CANVAS_WIDTH = 500;
-const CANVAS_HEIGHT = 500;
-const SUN_START_X = 0;
-const CLOUD_START_X = 0;
-const START_Y = 0;
+const CANVAS_WIDTH = 1000;
+const CANVAS_HEIGHT = 200;
+const MAX_WRONG_GUESS = 8;
 const allowedChars = [
   "a",
   "b",

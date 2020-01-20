@@ -36,6 +36,8 @@ function startGame(e) {
 
   selectRandomWord();
   displayCurrentWord();
+
+  cloudVelocity = 0.5;
 }
 
 function selectRandomWord() {
@@ -76,14 +78,9 @@ function guessLetter(e) {
   displayWrongGuesses();
 
   if (!currentWordDiv.innerText.includes("_")) {
-    alert("You won! 🎉");
-    // stop detecting keyboard input
-    document.onkeypress = null;
-  } else if (wrongGuesses.length === 5) {
-    alert("You lost! ☹️");
-    gameOver = true;
-    // stop detecting keyboard input
-    document.onkeypress = null;
+    showGameWon();
+  } else if (wrongGuesses.length >= MAX_WRONG_GUESS) {
+    showGameOver();
   }
 }
 
@@ -108,6 +105,19 @@ function displayWrongGuesses() {
   wrongGuesses.forEach(letter => {
     container.innerText += letter + " ";
   });
+}
+
+function showGameWon() {
+  alert("You won! 🎉");
+  // stop detecting keyboard input
+  document.onkeypress = null;
+}
+
+function showGameOver() {
+  alert("You lost! ☹️");
+  gameOver = true;
+  // stop detecting keyboard input
+  document.onkeypress = null;
 }
 
 document.getElementById("start-button").onclick = startGame;

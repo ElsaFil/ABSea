@@ -120,3 +120,17 @@ body {
   padding: 6px;
   margin: 20px auto 20px auto;
 }
+
+.canvas-container {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+}
+.canvas {
+  position: relative;
+  margin: 0 auto;
+  width: 1000px;
+  height: 200px;
+  z-index: -1;
+}
