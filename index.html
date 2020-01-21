@@ -12,15 +12,15 @@
       <section class="game-options dark-background">
         <div class="logo"><img src="/assets/logo.png" alt="" /></div>
         <div class="game-options-container">
-          <form id="category-form"> <!--action="#"-->
+          <div id="category-form">
             <label for="select-category">Select a category</label>
             <select name="select-category">
               <option value="all" selected="true">All</option>
               <option value="movies">Movies</option>
-              <option value="movies">Nature</option>
+              <option value="nature">Nature</option>
             </select>
             <input id="start-button" type="submit" value="Start game!" />
-          </form>
+          </div>
         </div>
       </section>
 
@@ -28,13 +28,14 @@
         <!-- <div class="cloud"></div>
         <div class="sun"></div> -->
         <div class="game-container">
-          <div class="guess-title">(type any letter to guess)</div>
+          <div class="guess-title"></div>
           <div class="current-word">_ _ _ _ _ _ _</div>
           <div class="wrong-guesses">
             <span class="wrong-guesses-title">Wrong guesses:</span>
             <br />
             <span class="wrong-guesses-letters"></span>
           </div>
+          <input id="reset-button" class="hidden" type="submit" value="Restart"/>
         </div>
       </section>
 

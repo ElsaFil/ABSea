@@ -1,6 +1,7 @@
 const CANVAS_WIDTH = 1000;
 const CANVAS_HEIGHT = 200;
 const MAX_WRONG_GUESS = 8;
+const HINT = "(type any letter to guess)";
 const allowedChars = [
   "a",
   "b",

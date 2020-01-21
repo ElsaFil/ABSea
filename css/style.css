@@ -7,6 +7,9 @@ body {
   font-size: 10pt;
   font-family: Arial, sans-serif;
 }
+.hidden {
+  visibility: hidden;
+}
 
 .logo,
 .game-options,
@@ -47,7 +50,6 @@ body {
 #category-form label,
 .game span {
   width: 60%;
-  font-size: 12pt;
   margin: 20% auto 10px auto;
 }
 #category-form select {
@@ -64,14 +66,8 @@ body {
   margin: 20px auto;
 }
 
-.hidden {
-  visibility: hidden;
-}
-
-/* .game {
-  
-} */
 .game-container {
+  z-index: 300;
   background-color: rgba(255, 255, 255, 0.7);
   position: relative;
   height: 400px;
@@ -83,9 +79,15 @@ body {
   align-items: center;
 }
 .guess-title {
-  margin: 10% auto;
+  margin: 5% auto;
   width: 60%;
+  height: 35px;
   font-size: 12pt;
+}
+.game-result {
+  font-size: 22pt;
+  font-weight: bold;
+  color: rgb(255, 86, 83);
 }
 .current-word {
   margin: 10% auto;
@@ -93,28 +95,42 @@ body {
   width: 60%;
   color: rgb(70, 160, 135);
 }
+.current-word .solution {
+  color: rgb(255, 86, 83);
+}
 .wrong-guesses {
-  margin: 10% auto;
+  margin: 10px auto;
   width: 60%;
+}
+.wrong-guesses-title {
   font-size: 12pt;
 }
 .wrong-guesses-letters {
-  margin-top: 10px;
+  font-size: 20pt;
   color: rgb(70, 160, 135);
+  height: 50px;
 }
+#reset-button {
+  background-color: rgb(20, 60, 136);
+  border: none;
+  color: white;
+  width: 130px;
+  height: 50px;
+  font-size: 12pt;
+  margin: 30px auto;
+}
+
 .copyright {
   position: absolute;
-  width: 100%;
-  height: 100%;
+  /* width: 100%;
+  height: 100%; */
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   margin: 0 auto;
   text-align: center;
   color: white;
-  z-index: 100;
 }
-
 .copyright div {
   width: 500px;
   padding: 6px;

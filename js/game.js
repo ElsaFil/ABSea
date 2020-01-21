@@ -6,14 +6,17 @@
 
 const gameOptions = document.getElementsByClassName("game-options")[0];
 const game = document.getElementsByClassName("game")[0];
+const hintDiv = document.getElementsByClassName("guess-title")[0];
 const currentWordDiv = document.getElementsByClassName("current-word")[0];
+const startButton = document.getElementById("start-button");
+const resetButton = document.getElementById("reset-button");
 
 let category = "";
 let currentWord = "";
 let correctGuesses = [];
 let wrongGuesses = [];
 
-let gameOver = false;
+let gameStatus = ""; // "", "playing", "won", "lost"
 
 function startGame(e) {
   let form = e.target.parentElement;
@@ -28,6 +31,7 @@ function startGame(e) {
     return name !== "hidden";
   });
   game.className = gameClasses;
+  hintDiv.innerText = HINT;
   // start detecting keyboard input
   document.onkeypress = guessLetter;
   // add dark background to copyright
@@ -38,6 +42,7 @@ function startGame(e) {
   displayCurrentWord();
 
   cloudVelocity = 0.5;
+  gameStatus = "playing";
 }
 
 function selectRandomWord() {
@@ -70,7 +75,7 @@ function guessLetter(e) {
     currentWord.includes(letter.toUpperCase())
   ) {
     correctGuesses.push(letter);
-  } else {
+  } else if (!wrongGuesses.includes(letter)) {
     wrongGuesses.push(letter);
   }
 
@@ -92,9 +97,11 @@ function displayCurrentWord() {
       correctGuesses.includes(letter) ||
       correctGuesses.includes(letter.toLowerCase())
     ) {
-      currentWordDiv.innerText += " " + letter;
+      currentWordDiv.innerHTML += " " + letter;
+    } else if (gameStatus === "lost") {
+      currentWordDiv.innerHTML += ` <span class="solution">${letter}</span>`;
     } else {
-      currentWordDiv.innerText += " _";
+      currentWordDiv.innerHTML += " _";
     }
   }
 }
@@ -103,21 +110,30 @@ function displayWrongGuesses() {
   let container = document.getElementsByClassName("wrong-guesses-letters")[0];
   container.innerText = "";
   wrongGuesses.forEach(letter => {
-    container.innerText += letter + " ";
+    container.innerText += " " + letter;
   });
 }
 
 function showGameWon() {
-  alert("You won! 🎉");
-  // stop detecting keyboard input
+  gameStatus = "won";
+  hintDiv.innerText = "You won! 🎉";
+  hintDiv.className += " game-result";
   document.onkeypress = null;
+  resetButton.className = "";
 }
 
 function showGameOver() {
-  alert("You lost! ☹️");
-  gameOver = true;
-  // stop detecting keyboard input
+  gameStatus = "lost";
+  hintDiv.innerText = "You lost! 😭";
+  hintDiv.className += " game-result";
   document.onkeypress = null;
+  resetButton.className = "";
+  displayCurrentWord();
 }
 
-document.getElementById("start-button").onclick = startGame;
+function resetGame() {
+  window.location.reload();
+}
+
+startButton.onclick = startGame;
+resetButton.onclick = resetGame;
