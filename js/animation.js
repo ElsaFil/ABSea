@@ -7,8 +7,8 @@ let cloudPositionX = 0;
 let cloudVelocity = 0;
 
 function preload() {
-  sunImage = loadImage("../assets/sun.png");
-  cloudImage = loadImage("../assets/cloud.png");
+  sunImage = loadImage("assets/sun.png");
+  cloudImage = loadImage("assets/cloud.png");
 }
 
 function setup() {
