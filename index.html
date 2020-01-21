@@ -7,27 +7,26 @@
     <title>ABSea!</title>
     <link rel="stylesheet" href="/css/style.css" />
   </head>
-  <body>
+  <body onLoad="pageLoaded()">
     <span class="container">
       <section class="game-options dark-background">
-        <div class="logo"><img src="/assets/logo.png" alt="" /></div>
         <div class="game-options-container">
-          <div id="category-form">
-            <label for="select-category">Select a category</label>
-            <select name="select-category">
-              <option value="all" selected="true">All</option>
-              <option value="movies">Movies</option>
-              <option value="nature">Nature</option>
-            </select>
-            <input id="start-button" type="submit" value="Start game!" />
-          </div>
+          <button class="music-control"></button>
+          <div class="logo"><img src="/assets/logo_bold.png" alt="" /></div>
+          <div class="select-category-label">Select a category</div>
+          <br>
+          <select name="select-category">
+            <option value="easy" selected="true">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+          </select>
+          <input id="start-button" type="submit" value="Start game!" />
         </div>
       </section>
 
       <section class="game hidden">
-        <!-- <div class="cloud"></div>
-        <div class="sun"></div> -->
         <div class="game-container">
+          <button class="music-control"></button>
           <div class="guess-title"></div>
           <div class="current-word">_ _ _ _ _ _ _</div>
           <div class="wrong-guesses">
@@ -51,10 +50,13 @@
     <section id="canvas-container">
         <div class="canvas"></div>
     </section>
+
+    <iframe id="player" class="music" width="560" height="315" src="https://www.youtube.com/embed/FPAdqzyWy3o?rel=0&autoplay=1&enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" ></iframe>
     
     <script src="libs/p5/p5.min.js"></script>
     <script src="/js/game.js"></script>
     <script src="/js/constants.js"></script>
     <script src="/js/animation.js"></script>
+    <script src="https://www.youtube.com/iframe_api"></script>
   </body>
 </html>

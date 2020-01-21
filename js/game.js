@@ -1,22 +1,28 @@
-// class Game {}
-
-// class Sun {}
-
-// class Cloud {}
-
 const gameOptions = document.getElementsByClassName("game-options")[0];
 const game = document.getElementsByClassName("game")[0];
 const hintDiv = document.getElementsByClassName("guess-title")[0];
 const currentWordDiv = document.getElementsByClassName("current-word")[0];
 const startButton = document.getElementById("start-button");
 const resetButton = document.getElementById("reset-button");
+const musicControlButtons = document.querySelectorAll(".music-control");
+const musicPlayer = document.getElementById("player");
 
 let category = "";
 let currentWord = "";
 let correctGuesses = [];
 let wrongGuesses = [];
-
+let musicOn = true;
+let youtubePlayer = null;
 let gameStatus = ""; // "", "playing", "won", "lost"
+let max_wrong_guess = 8;
+
+function pageLoaded() {
+  musicOn = true;
+  musicControlButtons.forEach(button => {
+    button.innerHTML = "🔊";
+    button.onclick = toggleMusic;
+  });
+}
 
 function startGame(e) {
   let form = e.target.parentElement;
@@ -41,22 +47,32 @@ function startGame(e) {
   selectRandomWord();
   displayCurrentWord();
 
-  cloudVelocity = 0.5;
+  if (category == "hard") {
+    cloudVelocity = 0.8;
+    max_wrong_guess = 6;
+  } else if (category == "medium") {
+    cloudVelocity = 0.6;
+    max_wrong_guess = 8;
+  } else {
+    // easy
+    cloudVelocity = 0.4;
+    max_wrong_guess = 10;
+  }
   gameStatus = "playing";
 }
 
 function selectRandomWord() {
   let wordPool = [];
   switch (category) {
-    case "movies":
-      wordPool = words_movies;
+    case "medium":
+      wordPool = words_medium;
       break;
-    case "nature":
-      wordPool = words_nature;
+    case "hard":
+      wordPool = words_hard;
       break;
-    case "all":
+    case "easy":
     default:
-      wordPool = words_movies.concat(words_nature).concat(words_general);
+      wordPool = words_easy;
       break;
   }
 
@@ -69,6 +85,7 @@ function guessLetter(e) {
   let letter = e.key.toLowerCase();
   if (!allowedChars.includes(letter)) {
     console.log("unsupported input: " + letter);
+    return;
   }
   if (
     currentWord.includes(letter) ||
@@ -84,7 +101,7 @@ function guessLetter(e) {
 
   if (!currentWordDiv.innerText.includes("_")) {
     showGameWon();
-  } else if (wrongGuesses.length >= MAX_WRONG_GUESS) {
+  } else if (wrongGuesses.length >= max_wrong_guess) {
     showGameOver();
   }
 }
@@ -112,12 +129,15 @@ function displayWrongGuesses() {
   wrongGuesses.forEach(letter => {
     container.innerText += " " + letter;
   });
+
+  let title = document.getElementsByClassName("wrong-guesses-title")[0];
+  title.innerText = `Wrong guesses (${wrongGuesses.length}/${max_wrong_guess}):`;
 }
 
 function showGameWon() {
   gameStatus = "won";
   hintDiv.innerText = "You won! 🎉";
-  hintDiv.className += " game-result";
+  hintDiv.className += " game-title";
   document.onkeypress = null;
   resetButton.className = "";
 }
@@ -125,7 +145,7 @@ function showGameWon() {
 function showGameOver() {
   gameStatus = "lost";
   hintDiv.innerText = "You lost! 😭";
-  hintDiv.className += " game-result";
+  hintDiv.className += " game-title";
   document.onkeypress = null;
   resetButton.className = "";
   displayCurrentWord();
@@ -133,6 +153,35 @@ function showGameOver() {
 
 function resetGame() {
   window.location.reload();
+}
+
+// will be called when https://www.youtube.com/iframe_api is loaded
+function onYouTubeIframeAPIReady() {
+  youtubePlayer = new YT.Player("player", {});
+}
+
+function toggleMusic() {
+  musicControlButtons.forEach(button => {
+    let container = button.parentElement.parentElement;
+    if (container.className.split(" ").includes("hidden")) {
+      // do nothing for hidden buttons
+      return;
+    }
+
+    if (musicOn) {
+      musicOn = false;
+      button.innerHTML = "🔇";
+      if (youtubePlayer) {
+        youtubePlayer.mute();
+      }
+    } else {
+      musicOn = true;
+      button.innerHTML = "🔊";
+      if (youtubePlayer) {
+        youtubePlayer.unMute();
+      }
+    }
+  });
 }
 
 startButton.onclick = startGame;
