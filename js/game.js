@@ -40,9 +40,6 @@ function startGame(e) {
   hintDiv.innerText = HINT;
   // start detecting keyboard input
   document.onkeypress = guessLetter;
-  // add dark background to copyright
-  let copyright = document.querySelector(".copyright div");
-  copyright.className += "dark-background";
 
   selectRandomWord();
   displayCurrentWord();
