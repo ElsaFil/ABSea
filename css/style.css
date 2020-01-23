@@ -21,10 +21,7 @@ body {
   height: 100%;
   text-align: center;
 }
-/* .logo img {
-  width: 350px;
-  margin: 40px auto 20px auto;
-} */
+
 .logo {
   margin: 30px auto 0px auto;
   font-size: 70pt;
@@ -88,13 +85,17 @@ body {
 .guess-title {
   margin: 20px auto;
   width: 60%;
-  height: 35px;
+  height: 37px;
   font-size: 16pt;
 }
 .game-title {
   width: 60%;
   font-size: 26pt;
   font-weight: bold;
+  color: #e22b22;
+}
+#streak-title {
+  font-size: 12pt;
   color: #e22b22;
 }
 .current-word {
@@ -126,7 +127,7 @@ body {
   width: 130px;
   height: 50px;
   font-size: 12pt;
-  margin: 30px auto;
+  margin: 20px auto;
 }
 
 .copyright {

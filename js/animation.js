@@ -28,9 +28,7 @@ function draw() {
   // check if cloud reached the other side
   if (cloudPositionX + 420 >= CANVAS_WIDTH) {
     // make sure game is not yet lost or won
-    if (gameStatus === "playing") {
-      showGameOver();
-    }
+    gameOver();
     noLoop();
   }
 }

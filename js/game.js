@@ -1,11 +1,12 @@
 const gameOptions = document.getElementsByClassName("game-options")[0];
 const game = document.getElementsByClassName("game")[0];
 const hintDiv = document.getElementsByClassName("guess-title")[0];
+const musicPlayer = document.getElementById("player");
 const currentWordDiv = document.getElementsByClassName("current-word")[0];
 const startButton = document.getElementById("start-button");
 const resetButton = document.getElementById("reset-button");
 const musicControlButtons = document.querySelectorAll(".music-control");
-const musicPlayer = document.getElementById("player");
+const streakTitle = document.getElementById("streak-title");
 
 let category = "";
 let currentWord = "";
@@ -15,6 +16,9 @@ let musicOn = true;
 let youtubePlayer = null;
 let gameStatus = ""; // "", "playing", "won", "lost"
 let max_wrong_guess = 8;
+let wordPool = [];
+let streak = 0;
+let totalWords = 0;
 
 function pageLoaded() {
   musicOn = true;
@@ -40,6 +44,7 @@ function startGame(e) {
   hintDiv.innerText = HINT;
   // start detecting keyboard input
   document.onkeypress = guessLetter;
+  document.onkeyup = keyUp;
 
   selectRandomWord();
   displayCurrentWord();
@@ -59,7 +64,6 @@ function startGame(e) {
 }
 
 function selectRandomWord() {
-  let wordPool = [];
   switch (category) {
     case "medium":
       wordPool = words_medium;
@@ -97,9 +101,15 @@ function guessLetter(e) {
   displayWrongGuesses();
 
   if (!currentWordDiv.innerText.includes("_")) {
-    showGameWon();
+    correctWord();
   } else if (wrongGuesses.length >= max_wrong_guess) {
-    showGameOver();
+    wrongWord();
+  }
+}
+
+function keyUp(e) {
+  if (e.key === "Enter" && resetButton.value === "Next Word") {
+    resetButton.onclick();
   }
 }
 
@@ -131,20 +141,73 @@ function displayWrongGuesses() {
   title.innerText = `Wrong guesses (${wrongGuesses.length}/${max_wrong_guess}):`;
 }
 
-function showGameWon() {
+function correctWord() {
+  streak++;
+  totalWords++;
   gameStatus = "won";
-  hintDiv.innerText = "You won! 🎉";
-  hintDiv.className += " game-title";
+  hintDiv.innerText = "Correct! 🎉";
   document.onkeypress = null;
-  resetButton.className = "";
+  displayCurrentWord();
+  moveOn();
 }
 
-function showGameOver() {
+function wrongWord() {
+  totalWords++;
   gameStatus = "lost";
-  hintDiv.innerText = "You lost! 😭";
+  hintDiv.innerText = "Nope... 🙈";
+  document.onkeypress = null;
+  displayCurrentWord();
+  moveOn();
+}
+
+function moveOn() {
+  // prepare for next step
   hintDiv.className += " game-title";
+  const index = wordPool.indexOf(currentWord);
+  if (index > 0) {
+    wordPool.splice(index, 1);
+  }
+
+  if (wordPool.length) {
+    // there are more words for guessing
+    resetButton.className = "";
+    resetButton.value = "Next Word";
+    resetButton.onclick = nextWord;
+  } else {
+    // all words have been guessed
+    resetButton.value = "Reset";
+    resetButton.onclick = resetGame;
+  }
+}
+
+function gameOver() {
+  gameStatus = "lost";
+  hintDiv.innerText = "Game Over! 😭";
+  hintDiv.className += " game-title";
+  streakTitle.className = "";
+  streakTitle.innerText = `You found ${streak} out of ${totalWords} words.`;
   document.onkeypress = null;
   resetButton.className = "";
+  resetButton.value = "Reset";
+  resetButton.onclick = resetGame;
+  displayCurrentWord();
+}
+
+function nextWord() {
+  // refresh game
+  gameStatus = "playing";
+  hintDiv.innerText = HINT;
+  let hintClasses = hintDiv.className.split(" ").filter(name => {
+    return name !== "game-title";
+  });
+  hintDiv.className = hintClasses;
+  resetButton.className += " hidden";
+  document.onkeypress = guessLetter;
+
+  correctGuesses = [];
+  wrongGuesses = [];
+  displayWrongGuesses();
+  selectRandomWord();
   displayCurrentWord();
 }
 
