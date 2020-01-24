@@ -50,14 +50,14 @@ function startGame(e) {
   displayCurrentWord();
 
   if (category == "hard") {
-    cloudVelocity = 0.6;
+    cloudVelocity = 0.3;
     max_wrong_guess = 6;
   } else if (category == "medium") {
-    cloudVelocity = 0.4;
+    cloudVelocity = 0.2;
     max_wrong_guess = 8;
   } else {
     // easy
-    cloudVelocity = 0.2;
+    cloudVelocity = 0.1;
     max_wrong_guess = 10;
   }
   gameStatus = "playing";
